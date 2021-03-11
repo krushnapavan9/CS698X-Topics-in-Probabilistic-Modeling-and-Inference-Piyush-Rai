@@ -1,0 +1,16 @@
+The answers and grading rubric for the two subjective questions is also given below. Please look at them before placing any regrading request.
+
+=============
+
+Question: State two advantages of fully Bayesian inference over MAP estimation. Write your answer in the provided text box only (no file upload).
+
+Answer: (1) We get the uncertainty in the parameters via the posterior distribution; (2) Averaging over the posterior gives more robust predictions since the uncertainty in the parameters gets factored in and we can obtain the PPD.
+
+Grading Rubric: Give 1.5 marks for each of the two advantages. It is okay if they have written another relevant advantage different from the above 2 I have written above.
+
+=====================
+Question: Give a brief, intuitive justification as to why the posterior predictive distribution of a probabilistic linear regression model (or, in fact, of any model) would typically have a larger variance than the plug-in predictive distribution. Write your answer in the provided text box only (no file upload).
+
+Answer: The posterior predictive distribution (PPD) is obtained by marginalizing (averaging) over the posterior, so it takes into account the uncertainty in the model parameters (weight vector in this case). A plug-in predictive, on the other hand, uses the point estimate of the parameters and ignores their uncertainty. Therefore the PPD has a larger variance as compared to the plug-in predictive.
+
+Grading rubric: If the answer shows the understanding that PPD is based on averaging over the posterior whereas plug-in predictive only uses point estimate (hence ignores uncertainty) and that is the reason why PPD has a larger variance, give 3 marks. If explanation is somewhat along the above lines but is imprecisely stated, give 1.5 marks. Otherwise give 0.
