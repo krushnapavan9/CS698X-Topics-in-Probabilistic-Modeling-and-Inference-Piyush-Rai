@@ -1,0 +1,44 @@
+Please find below the subjective question answers + grading rubric for Quiz 2. If you have any grading related issues, please let me know directly by email with subject "Quiz 2 grading issue", by end of tomorrow (April 7, 11:59pm).
+
+========================================
+Q1: Both Gaussian Process (GP) as well as Relevance Vector Machine (RVM) are methods for learning nonlinear predictive models and use kernels. Will they be equally fast/slow at test time? Briefly justify your answer (in the textbox below, preferably using plaintext only; no file uploads will be considered).
+
+A: No, RVM will in general be faster than GP since RVM uses a sparse prior on the coefficients of predictive mean \sum_{n=1}^N w_n k(x_n,x_*) whereas standard GP does not have any sparsity.
+
+Grading Rubric: 3 marks only if the answer is correct with the correct explanation
+
+==========================
+Q2: Entropy or variance of the posterior predictive of the query input is often used as an acquisition function for Active Learning. Will it be a good choice as the acquisition function if we are solving a Bayesian Optimization problem instead? Briefly justify your answer (in the textbox below, preferably using plaintext only; no file uploads will be considered).
+
+A: Entropy of the posterior predictive only tells us about the uncertainty in the function being learned, not about the location of the optima of the function (finding which is the goal in Bayesian Optimization). Therefore, this will not be a good choice as the acquisition function.
+
+Grading Rubric: 3 marks for the correct explanation
+===========================
+Q3: Can we use  a kernelized SVM for learning the underlying function when doing Bayesian Optimization? Briefly justify your answer (in the textbox below, preferably using plaintext only; no file uploads will be considered).
+
+A: No, since it does not provide any estimate of the function's uncertainty.
+
+Grading Rubric: 3 marks only if the answer is correct with the correct explanation
+===========================
+Q5: Considering using Bayesian Optimization to minimize some function. The lower confidence bound (LCB) acquisition function is defined as \(A_{LCB}(x_{new}) = \mu(x_{new}) - \kappa \sigma(x_{new}) \) where \( \mu(x_{new})\) and \(\sigma(x_{new})\) denote the mean and standard deviation of the posterior predictive of \(x_{new}\), and the most useful query point is chosen as the one that minimizes this acquisition function. Provide a brief justification as to why the use of such an acquisition function makes sense (answer in the textbox below, preferably using plaintext only; no file uploads will be considered).
+
+A: This acquisition function favors selecting those points that have a low predictive mean \mu(x_{new}) as well as have a large predictive uncertainty \sigma(x_{new}). A low-predictive mean implies that this point is likely to be close to the actual minima. A large predictive uncertainty implies that inclusion of this point to update our estimate of the function will possibly improve our estimate a lot.
+
+Grading Rubric:  3 marks for the correct explanation
+
+=========================
+Q5: A kernelized model such as Gaussian Process (GP) does not have weights for each feature unlike a linear model so we can't use methods like \(\ell_1\) or \( \ell_0\) regularization of the weights. Can you learn (not using a heuristic but through proper learning!) the feature importances when using a GP based model, in order to perform feature selection? If no, briefly state why. If yes, briefly state how (answer in the textbox below, preferably using plaintext only; no file uploads will be considered).
+
+A: Yes, if we use an ARD-style kernel (similar to RBD kernel but with a different bandwidth parameter for each feature with the parameter being learnable) , the feature relevance can be learned by estimating the kernel hyperparameters (the feature-specific bandwidths). Irrelevant features will tend to have very large value of the bandwidth, thereby being ignored in the kernel computation.
+
+Grading Rubric:  3 marks only if the answer is correct with the correct explanation
+=======================
+Q6: Consider a Bayesian matrix factorization model where the matrix entries are binary. Assume Gaussian priors on the user and item parameters (similar to what we discussed in the lecture). Which known probabilistic modeling problem will learning each conditional posterior (CP) reduce to in this case? Can we obtain each CP in closed form? If not, suggest a possible approximation for each CP such that we can derive a Gibbs sampler identical to the case discussed in the lecture when the matrix entries were real-valued. NOTE: You do not need to write any equations; just answer the question briefly in plain text.
+
+A: Estimating each user's/item's parameters will be equivalent to a binary classification problem (e.g., logistic/probit regression), akin to how it was a Bayesian linear regression model if the matrix entries are real-valued. Due to non-conjugacy of the Bernoulli-Gaussian prior, the CP won't be available in closed form. We can use Laplace approximation to get a Gaussian approximation to each of the CPs and then do Gibbs sampling just like the way we did for the case when matrix entries were real-valued.
+
+Grading Rubric:  5 marks only if the answer is correct with the correct explanation. If the problem (binary classification with logistic/probit regression) is not clearly mentioned then 2 marks to be deducted. The answer must also mention what the CP will be (if not mentioned, 2 marks to be deduced).
+==============================
+
+Regards,
+--Piyush.
