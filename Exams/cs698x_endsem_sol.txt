@@ -1,0 +1,128 @@
+Dear all,
+
+Those of you who appeared for the end-sem exam may look at your graded answer-sheets on the Hello-IITK portal. The solutions and grading rubric are provided below. Some statistics from the exam (note that the scores below are out of 140 marks):
+
+Highest: 126
+Mean: 78.3
+Median: 80 (note: total 41 students took the exam, so it means roughly about 20 students had a score of 80 or above)
+Std: 23.3
+
+If you have a regrading request, please email me by May 18, 11:59pm (use subject "CS698X: end-sem regrading"). I may not be able to reply to your requests individually but you can rest assured that I will look at it (so please do not ping me again to check). Also, please refrain from making frivolous regrading requests which may be penalized by mark deduction.
+
+Solutions and grading rubrics are as follows:
+==========================
+T/F and MCQ
+==========================
+Answers on Hello-IITK portal itself
+Grading Rubric: Fixed
+==========================
+SHORT ANSWER QUESTIONS
+==========================
+Q) Consider Bayesian linear regression and logistic regression, trained using datasets \(\mathcal{D}_1\) and \(\mathcal{D}_2\), respectively (assume hyperparameters to be known). For each of the two models, suppose we have computed the Kullback-Leibler (KL) divergence between the true posterior and its Laplace approximation. Can you say for sure as to which of the two KL divergences will be larger? Justify your answer briefly.
+
+A) For logistic regression since for Bayesian linear regression, posterior and Laplace approximation will be the same and thus KL will be zero.
+
+Grading rubric: 4 marks for correct answer + explanation. 2 marks if the answer isn't fully correct but some attempt is made.  Give 0 mark otherwise.
+===========================
+Q) What is the phenomenon of posterior collapse in VAE? Is a simple model like probabilistic PCA also likely to suffer from this?
+
+A) When posterior collapses on the prior and it happens since the decoder of the VAE can be very powerful making the reconstruction error term very small (or likelihood term very large). PPCA doesn't suffer since it has a decoder of a limited capacity (linear decoder).
+
+Grading rubric: 4 marks for correct answer. 3 marks if the answer is correct but the PPCA part is not correct. Give 0 mark otherwise.
+==========================
+Q) Assume we are given a collection of D documents and a vocabulary of total V unique words. Consider a model which assumes that, for document d, first a categorical latent variable \(z_d\) is drawn from a K-dimensional multinoulli, and then depending on the value of \(z_d\), all words in document d are drawn from one of the K V-dimensional multinoulli distributions. Does the latent dirichlet allocation (LDA) allocation model have any advantage over this model? Briefly justify your answer.
+
+A) Yes, LDA is better since not all words in a document are assumed to be from the same cluster. This is a better assumption since documents are usually a mixture of topics.
+
+Grading rubric: 4 marks only for the fully correct answer. Give 0 marks otherwise.
+===========================
+Q) Can the standard Stochastic Gradient Langevin Dynamics (SGLD) algorithm be used to perform inference in a model like gamma-Poisson latent factor model? Briefly justify your answer.
+
+A) No, since the parameters have constraints (non-negativity)  and SGLD updates don't take into account any constraints.
+
+Grading rubric:  4 marks only for the fully correct answer. Give 0 marks otherwise.
+===========================
+Q) What is the proposal distribution used by a Gibbs sampling algorithm and why is Gibbs sampling said to be a special case of Metropolis-Hastings algorithm?
+
+A) Conditional posterior of each variable is the proposal (it is also okay to say that the target distribution is the proposal) in Gibbs sampling. Gibbs sampling is a special case of MH since the acceptance probability = 1 for this choice of proposal.
+
+Grading rubric: 4 marks for the correct answer. Give 0 marks otherwise.
+===========================
+Q) When using VI to approximate a posterior \(p\) using another distribution \(q\), why directly minimizing \(KL(q||p)\) w.r.t. \(q\) is hard? How does VI get around this issue?
+
+A) Minimizing KL(q||p) directly is hard since the posterior p itself is intractable. VI instead maximizes the ELBO which is equivalent to minimizing this KL.
+
+Grading rubric: 4 marks for the correct answer. Give 0 marks otherwise.
+===========================
+Q) Can we use VI to perform model selection? If yes, how? If no, why not?
+
+A) Yes, we can compare different models based on their respective ELBO  values
+
+Grading rubric: 4 marks only for the fully correct answer. Give 0 marks otherwise.
+==========================
+Q) Suggest a method that can make Gaussian Process (GP) based models faster at test time as compared to the usual O(N) test-time cost incurred by traditional GPs, where N is the number of training examples.
+
+A) Either use the inducing point method (which uses a small subset M << N) of inputs locations and uses those as the training set, or use a method like neural processes which summarizes the training inputs into a fixed sized vector (so the prediction cost doesn't depend on the number of training inputs).
+
+Grading rubric: 4 marks only for the fully correct answer. Give 0 marks otherwise.
+==========================
+Q) What are the main challenges in using VI for learning the posterior for Bayesian neural networks. Briefly state some of the techniques that can address such challenges in VI (and how they do it). Please answer using no more 3-4 sentences.
+
+A) ELBO can be intractable and gradient of ELBO can also be difficult to compute. Methods like black-box VI or reparametrization tricks help solve such issues by approximating the ELBO and/or its gradients using Monte-Carlo sampling.
+
+Grading rubric:   4 marks only for the fully correct answer (mentions about ELBO and/or ELBO gradients being difficult to compute). 3 marks if the answer is mostly correct but lacks precision.
+============================
+Q) Suppose you have tossed a coin a number of times. Now suppose you want to compute the probability that \(\theta \leq 0.5\) where \(\theta\) is the probability of heads. Briefly describe a Bayesian way to do this.
+
+A) Compute the posterior and then use its CDF
+
+Grading rubric: 4 marks for the correct answer. Give 0 marks otherwise.
+============================
+MEDIUM/LONG ANSWER QUESTIONS
+Only the grading rubric is given below and a brief comment about the problem which should give an idea about the solution (not providing a full solution but will try doing it later)
+============================
+LDA Problem (12 marks)
+
+Just required applying understanding of what z_{d,n} means. If you average all z_{d,n} of a document, you get an approximation of the topic mixing proportion vector for that document. Likewise, a similar averaging can be done to get \phi_k (basically, getting \phi_kv requires looking at z_{d,n} for all documents such that the word is v and z_{d,n} and computing the average)  
+
+Grading Rubric:
+Meaning of each entry of \theta_d and \phi_k: 4 marks (2 marks each)
+How to compute \theta_d: 4 marks
+How to compute \phi_k: 4 marks
+============================
+Binary classification problem (20 marks):
+
+Note: This is basically the probit regression model
+
+Grading Rubric:
+Correct expression for p(y_n|x_n,w): 14
+MLE, correct gradients, etc: 6 marks (can directly take gradients; won't get closed form solutions however, or use EM)
+=================================
+Gibbs sampler for Poisson-gamma count-valued observation model (14 marks)
+
+This is a straightforward problem, similar to one of the HW3 problems (in fact easier than that).
+
+Grading Rubric:
+Correct answer about local conjugacy: 2 marks
+CP of \lambda: 5 marks
+CP of b: 5 marks
+Sketch of Gibbs sampler: 2 marks
+Everything is correct but b is incorrect, deduct 4 marks (give 10 marks)
+Basic approach at a high level is correct but overall solution is not correct (6 marks)
+=================================
+Generative classification problem (24 marks)
+
+This model is similar to LDA except (1) All words in a document come from the same topic, and (2) the topic of the document is known (the class label of the document)
+
+Grading Rubric:
+Plate diagram: 4
+Posterior for \pi = 4
+Posterior for \phi_k = 6
+MAP for \pi = 1
+MAP for \phi = 1
+Predictive (MAP  based): 3
+Posterior predictive: 5
+Some other comments:
+For the 20 marks part (derivations), if only the basic approach is correct but the derivations/results are incorrect, give 6 marks.
+Posterior predictive not simplified (just left at the basic definition). 2 marks deducted for that.
+=========================
