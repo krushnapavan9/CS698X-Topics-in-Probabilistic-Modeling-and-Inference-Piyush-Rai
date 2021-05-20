@@ -1,0 +1,44 @@
+For Quiz 3, the subjective questions, their answers, and the grading rubric followed are given below:
+
+==========================
+(Q) For a Gaussian mixture model, which unknowns are global and which ones are local?
+
+(A) Parameters of each Gaussian (mean, covariance) and their mixing proportions are global variables. The cluster assignment ids for each data point are local variables.
+
+Grading rubric: Give 3 marks for full correct answer. Give 2 marks if it misses the mixing proportions from the global variables. Give 0 mark otherwise.
+
+(Q) When estimating the hyperparameters of a probabilistic model using MLE-II and EM, do you expect both approaches to give the same solution in general? If yes, why? If no, why not?
+
+(A) No, in general, they would give different results since MLE-II maximizes the log marginal likelihood and EM maximizes the complete data log-likelihood.
+
+Grading rubric: Give 3 marks for the correct answer (no) with justification. Give 1 mark if there is some explanation given (even if somewhat incorrect) irrespective of whether the answer says yes or no. Give 0 mark otherwise.
+
+(Q) In a latent variable model, when doing hybrid inference, how do we usually decide which unknowns to do point estimate on and for which unknowns to infer the posterior? If you want, you may answer this question using an example of a probabilistic model of your choice.
+
+(A) Usually, we would like to do point estimation for variables that are associated with a lot of observations and posterior inference for variables for that associated with very few observations (say single observation).
+
+Grading rubric: Give 3 marks if the answer says it is based on local and global variables (more detailed explanation like in the above answer would be nice but actually not necessary to get 3 marks). Give 0 mark otherwise.
+
+(Q) Assuming we have a sampling based approximation of a posterior distribution, does the cost of computing the posterior predictive distribution depend on the number of samples? If yes, why? If no, why not?
+
+(A) Yes, it does since to compute the PPD when the posterior has been approximated by samples, we need to do a Monte-Carlo approximation of the integral and it depends on the number of samples.
+
+Grading rubric: Give 3 marks for the correct answer and correct explanation. If the answer/explanation is mostly correct with some minor flaws, give 2 marks. Give 0 mark if the answer is incorrect.
+
+(Q) When using a VI based approximation of a posterior distribution, is the posterior predictive distribution always available in closed form? If yes, why? If no, why not?
+
+(A) No. It is only available in closed form if the integral involved in the PPD which is \int p(x_*|\theta)q(\theta|D)d\theta is tractable. This is typically possible only when the likelihood and the variational posterior q(\theta|D) are conjugate to each other.
+
+Grading rubric: Give 3 marks for the correct answer and explanation. Give 2 marks if the answer is no but the explanation is only somewhat correct and has some flaws. Give 0 mark otherwise.
+
+(Q) Suppose we want to estimate all the unknowns of a Bayesian linear regression model. Will using online EM or stochastic VI be better (faster) than their batch counterparts (batch EM and batch VI)}? If yes, why? If no, why not?
+
+(A) This is sort of a tricky question and both yes and no can be acceptable answers depending on the explanation. Note that Bayesian linear regression is not a model with local latent variables, so online EM or stochastic VI don't make that much sense here. That being said, you can still use only a minibatch of data in every iteration and do stochastic optimization in an EM or VI algorithm to make things faster because some of the quantities (e.g., the CP of the weight vector) do depend on all the data. We will accept both answers (faster or not faster) so long as there is a reasonable explanation. But keep in mind that online EM and stochastic VI (in the form we have seen in the course) are primarily designed to speed up inference for models with local and global variables and the Bayesian linear regression is not such a model.
+
+Grading rubric: Give 3 marks for a reasonable answer with reasonable explanation (along the lines of what is said in the answer above).
+
+(Q) Suppose you are using MH sampling to infer the posterior distribution of some model. Does the MH acceptance probability depend on the number of observations? If yes, why? If no, why not?
+
+(A) It does depend since the acceptance probability requires computing the ratio of unnormalized target distribution at the proposed and current state and this unnormalized distribution is a product of likelihood and prior. Cost of computing the likelihood depends on the number of observations.
+
+Grading rubric: Give 3 marks for the correct answer with explanation. Give 2 marks if the explanation is not fully correct has a somewhat correct basic idea. Give 0 mark otherwise.
